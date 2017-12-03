@@ -793,8 +793,8 @@
             <Table height="200" border :columns="columns2" :data="bigData"></Table>
         </div>
         <br><br><br>
-        <Table width="550" height="200" border :columns="columns2" :data="data0"></Table>
-        <Table width="550" height="200" border :columns="columns2" :data="data1"></Table>
+        <Table width="550"  style="height:100%" border :columns="columns2" :data="data0"></Table>
+        <Table width="550" style="height:100%" border :columns="columns2" :data="data1"></Table>
     </div>
 </template>
 <script>
@@ -802,7 +802,7 @@
         data () {
 
             let bigData = [];
-            for(let i=0;i<10000;i++){
+            for(let i=0;i<19999;i++){
 
                bigData.push(    {
                         name: 'John Brown'+i,
@@ -889,7 +889,7 @@
                     {
                         title: 'Action',
                         key: 'action',
-                        fixed: 'right',
+                        // fixed: 'right',
                         width: 120,
                         render: (h, params) => {
                             return h('div', [

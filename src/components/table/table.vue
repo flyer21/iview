@@ -107,7 +107,8 @@ const prefixCls = "ivu-table";
 
 let rowKey = 1;
 let columnKey = 1;
-
+let rowHeight = 48;
+let pageSize=10
 export default {
   name: "Table",
   mixins: [Locale],
@@ -123,7 +124,7 @@ export default {
         type:Object,
     
       default: function() {
-        return { from: 0, size: 40 ,pageSize:10,top:0,rowHeight:48};
+        return { from: 0, size: pageSize*4 ,pageSize:pageSize,top:0,rowHeight:rowHeight};
       }
       },
     columns: {

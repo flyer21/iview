@@ -80,6 +80,12 @@ export default {
        let viewer =   this.$parent.viewer;
       if (this.data.length>viewer.size) {
         let  height =(this.data.length-viewer.pageSize)* viewer.rowHeight;
+        // let  height =(this.data.length)* viewer.rowHeight;
+        style.height = `${height}px`;
+      }
+      else{
+          //  let  height =(this.data.length-viewer.pageSize)* viewer.rowHeight;
+        let  height =(this.data.length)* viewer.rowHeight;
         style.height = `${height}px`;
       }
       return style;
