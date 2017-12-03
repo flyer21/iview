@@ -790,16 +790,46 @@
 <template>
     <div>
         <div style="width: 550px;">
-            <Table height="200" border :columns="columns2" :data="data4"></Table>
+            <Table height="200" border :columns="columns2" :data="bigData"></Table>
         </div>
         <br><br><br>
-        <Table width="550" height="200" border :columns="columns2" :data="data4"></Table>
+        <Table width="550" height="200" border :columns="columns2" :data="data0"></Table>
     </div>
 </template>
 <script>
     export default {
         data () {
+
+            let bigData = [];
+            for(let i=0;i<1000;i++){
+
+               bigData.push(    {
+                        name: 'John Brown'+i,
+                        age: 18,
+                        address: 'New York No. 1 Lake Park',
+                        province: 'America',
+                        city: 'New York',
+                        zip: 100000
+                    });
+
+            }
+            let data0 = [];
+
+            for(let i=0;i<40;i++){
+
+               data0.push(    {
+                        name: 'John Brown'+i,
+                        age: 18,
+                        address: 'New York No. 1 Lake Park',
+                        province: 'America',
+                        city: 'New York',
+                        zip: 100000
+                    });
+
+            }
             return {
+                bigData:bigData,
+                data0:data0,
                 columns2: [
                     {
                         title: 'Name',
@@ -835,7 +865,7 @@
                     {
                         title: 'Action',
                         key: 'action',
-                        fixed: 'right',
+                        // fixed: 'right',
                         width: 120,
                         render: (h, params) => {
                             return h('div', [

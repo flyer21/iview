@@ -16,6 +16,7 @@
             rowClasses (_index) {
                 return [
                     `${this.prefixCls}-row`,
+                    `${this.prefixCls}-row-`+_index,                    
                     this.rowClsName(_index),
                     {
                         [`${this.prefixCls}-row-highlight`]: this.objData[_index] && this.objData[_index]._isHighlight,
