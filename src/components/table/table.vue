@@ -258,7 +258,6 @@ export default {
       return style;
     },
     tableStyle() {
-        console.info("tableStyle")
       let style = {};
       if (this.tableWidth !== 0) {
         let width = "";
@@ -292,7 +291,8 @@ export default {
       return style;
     },
     fixedTableStyleBody() {
-      let style = this.fixedTableStyle;
+      
+      let style = deepCopy(this.fixedTableStyle);
       if (this.viewer.top){
           let top = this.viewer.top;
           let scrollTop = this.viewer.scrollTop;
@@ -310,10 +310,13 @@ export default {
       });
       width += this.scrollBarWidth;
       style.width = `${width}px`;
+
       return style;
     },
     fixedRightTableStyleBody() {
-      let style = this.fixedRightTableStyle;
+      let style =deepCopy( this.fixedRightTableStyle);
+   
+     
       if (this.viewer.top){
           let top = this.viewer.top;
           let scrollTop = this.viewer.scrollTop;
@@ -351,6 +354,7 @@ export default {
         style.height =
           this.scrollBarWidth > 0 ? `${height}px` : `${height - 1}px`;
       }
+            // style['overflow-y']='scroll';
       return style;
     },
     leftFixedColumns() {
