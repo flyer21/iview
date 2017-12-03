@@ -794,6 +794,7 @@
         </div>
         <br><br><br>
         <Table width="550" height="200" border :columns="columns2" :data="data0"></Table>
+        <Table width="550" height="200" border :columns="columns2" :data="data1"></Table>
     </div>
 </template>
 <script>
@@ -801,9 +802,31 @@
         data () {
 
             let bigData = [];
-            for(let i=0;i<1000;i++){
+            for(let i=0;i<10000;i++){
 
                bigData.push(    {
+                        name: 'John Brown'+i,
+                        age: 18,
+                        address: 'New York No. 1 Lake Park',
+                        province: 'America',
+                        city: 'New York',
+                        zip: 100000,
+                        address1: 'New York No. 1 Lake Park',
+                        province1: 'America',
+                        city1: 'New York',
+                        zip1: 100000,
+                        address2: 'New York No. 1 Lake Park',
+                        province2: 'America',
+                        city2: 'New York',
+                        zip2: 100000
+                    });
+
+            }
+            let data0 = [];
+
+            for(let i=0;i<1;i++){
+
+               data0.push(    {
                         name: 'John Brown'+i,
                         age: 18,
                         address: 'New York No. 1 Lake Park',
@@ -813,11 +836,11 @@
                     });
 
             }
-            let data0 = [];
+            let data1 = [];
 
-            for(let i=0;i<40;i++){
+            for(let i=0;i<10;i++){
 
-               data0.push(    {
+               data1.push(    {
                         name: 'John Brown'+i,
                         age: 18,
                         address: 'New York No. 1 Lake Park',
@@ -830,12 +853,13 @@
             return {
                 bigData:bigData,
                 data0:data0,
+                data1:data1,
                 columns2: [
                     {
                         title: 'Name',
                         key: 'name',
                         width: 100,
-//                        fixed: 'left'
+                       fixed: 'left'
                     },
                     {
                         title: 'Age',
@@ -865,7 +889,7 @@
                     {
                         title: 'Action',
                         key: 'action',
-                        // fixed: 'right',
+                        fixed: 'right',
                         width: 120,
                         render: (h, params) => {
                             return h('div', [

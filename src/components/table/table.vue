@@ -51,7 +51,7 @@
                     <table-body
                         fixed="left"
                         :prefix-cls="prefixCls"
-                        :styleObject="fixedTableStyle"
+                        :styleObject="fixedTableStyleBody"
                         :columns="leftFixedColumns"
                         :data="rebuildData"
                         :columns-width="columnsWidth"
@@ -73,7 +73,7 @@
                     <table-body
                         fixed="right"
                         :prefix-cls="prefixCls"
-                        :styleObject="fixedRightTableStyle"
+                        :styleObject="fixedRightTableStyleBody"
                         :columns="rightFixedColumns"
                         :data="rebuildData"
                         :columns-width="columnsWidth"
@@ -291,6 +291,17 @@ export default {
       style.width = `${width}px`;
       return style;
     },
+    fixedTableStyleBody() {
+      let style = this.fixedTableStyle;
+      if (this.viewer.top){
+          let top = this.viewer.top;
+          let scrollTop = this.viewer.scrollTop;
+          style.top=`${top}px`;
+          style.scrollTop=`${scrollTop}px`;
+      }
+      return style;
+    },
+
     fixedRightTableStyle() {
       let style = {};
       let width = 0;
@@ -299,6 +310,16 @@ export default {
       });
       width += this.scrollBarWidth;
       style.width = `${width}px`;
+      return style;
+    },
+    fixedRightTableStyleBody() {
+      let style = this.fixedRightTableStyle;
+      if (this.viewer.top){
+          let top = this.viewer.top;
+          let scrollTop = this.viewer.scrollTop;
+          style.top=`${top}px`;
+          style.scrollTop=`${scrollTop}px`;
+      }
       return style;
     },
     bodyStyle() {
