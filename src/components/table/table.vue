@@ -593,10 +593,22 @@ export default {
       this.hideColumnFilter();
       let top = event.target.scrollTop;
       let begin = Math.floor(top/this.viewer.rowHeight)
-      if (Math.abs(this.viewer.from -begin)>this.viewer.pageSize/2){
+          console.info( this.viewer.from  +" 天天 " + begin)
+      if ((this.viewer.from >=begin)){
           this.viewer.from = Math.floor(begin/this.viewer.pageSize)*this.viewer.pageSize;
           this.viewer.top=Math.max(0,top-(this.viewer.rowHeight*this.viewer.pageSize));
-          this.viewer.scrollTop=top;
+            // this.viewer.top=Math.max(0,top);
+                 this.viewer.scrollTop=top;
+        console.info(1+" " + this.viewer.from)
+  
+
+      }
+      else if (begin-this.viewer.from>this.viewer.pageSize){
+          this.viewer.from = Math.floor(begin/this.viewer.pageSize)*this.viewer.pageSize;
+          this.viewer.top=top;
+          // this.viewer.top=top;
+           this.viewer.scrollTop=top;
+        console.info(2 +" " + this.viewer.from)
 
       }
       
