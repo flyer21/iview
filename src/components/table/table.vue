@@ -592,14 +592,38 @@ export default {
     //   console.info(event.target.scrollTop);
       this.hideColumnFilter();
       let top = event.target.scrollTop;
+      let left =event.target.scrollLeft
+      let l=0;
+      this.cloneColumns.forEach(col => {
+        let o =col._visible;
+        if (col.width+l<left){
+          col._visible=false;
+        }
+        else if (l >left + event.target.clientWidth){
+
+           col._visible=false;
+        }
+        else{
+           col._visible = true
+        }
+        if (o !==col._visible){
+          this.viewer.top=0;
+          this.viewer.top=top;
+        }
+         l=col.width+l
+        });
+    
+
       let begin = Math.floor(top/this.viewer.rowHeight)
           console.info( this.viewer.from  +" 天天 " + begin)
+      this.viewer.size = (Math.floor(this.$refs.body.clientHeight/this.viewer.rowHeight)+1)*2
+       this.viewer.pageSize=Math.floor(this.$refs.body.clientHeight/this.viewer.rowHeight)+1
       if ((this.viewer.from >=begin)){
           this.viewer.from = Math.floor(begin/this.viewer.pageSize)*this.viewer.pageSize;
           this.viewer.top=Math.max(0,top-(this.viewer.rowHeight*this.viewer.pageSize));
             // this.viewer.top=Math.max(0,top);
                  this.viewer.scrollTop=top;
-        console.info(1+" " + this.viewer.from)
+        console.info(1+" up " + this.viewer.from)
   
 
       }
@@ -803,6 +827,7 @@ export default {
         column._filterVisible = false;
         column._isFiltered = false;
         column._filterChecked = [];
+        column._visible=true;
 
         if ("filterMultiple" in column) {
           column._filterMultiple = column.filterMultiple;
@@ -877,6 +902,7 @@ export default {
         this.fixedHeader();
       }
     });
+    console.info("body height:"+ this.$refs.body.clientHeight)
   },
   beforeDestroy() {
     off(window, "resize", this.handleResize);

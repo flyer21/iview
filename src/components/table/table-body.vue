@@ -15,7 +15,8 @@
                     @click.native="clickCurrentRow(row._index)"
                     @dblclick.native.stop="dblclickCurrentRow(row._index)">
                     <td v-for="column in columns" :class="alignCls(column, row)">
-                        <Cell
+                        
+                        <Cell v-if="column._visible" 
                             :fixed="fixed"
                             :prefix-cls="prefixCls"
                             :row="row"
@@ -98,6 +99,7 @@ export default {
         return index >= viewer.from && index < viewer.size + viewer.from;
       });
     },
+ 
   
 
     rowChecked (_index) {
