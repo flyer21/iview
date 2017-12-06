@@ -16,7 +16,7 @@
                     @dblclick.native.stop="dblclickCurrentRow(row._index)">
                     <td v-for="column in columns" :class="alignCls(column, row)">
                         
-                        <Cell v-if="column._visible" 
+                        <Cell v-if=" fixed||column._visible" 
                             :fixed="fixed"
                             :prefix-cls="prefixCls"
                             :row="row"
