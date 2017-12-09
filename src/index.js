@@ -105,6 +105,7 @@ const components = {
     Step: Steps.Step,
     Steps,
     Table,
+    TableColumn:Table.TableColumn,
     Tabs: Tabs,
     TabPane: Tabs.Pane,
     Tag,

@@ -886,8 +886,17 @@ export default {
     this.showSlotHeader = this.$slots.header !== undefined;
     this.showSlotFooter = this.$slots.footer !== undefined;
     this.rebuildData = this.makeDataWithSortAndFilter();
+ 
   },
   mounted() {
+    let columns =this.columns;
+    this.$slots.default.forEach(item=>{
+      if(item.componentOptions){
+        let c=deepCopy(item.componentOptions.propsData);
+        c.key = item.key
+        columns.push(c);
+      }
+    })
     this.handleResize();
     this.fixedHeader();
     this.$nextTick(() => (this.ready = true));

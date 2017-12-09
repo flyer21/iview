@@ -1,2 +1,4 @@
 import Table from './table.vue';
-export default Table;
+import TableColumn from './table-column.vue';
+Table.TableColumn =TableColumn;
+export default  Table;
