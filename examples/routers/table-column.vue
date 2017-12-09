@@ -8,8 +8,9 @@
   
 
                 <TableColumn title="name" key="name" :width="100" ></TableColumn>
-                <TableColumn title="Age" key="age" :width="100"  ></TableColumn>
-                <TableColumn title="Province" key="province" :width="100"  ></TableColumn>
+                <TableColumn title="info" :width="100" >
+                <TableColumn title="Age11111" key="age" :width="100"  ></TableColumn>
+                <TableColumn title="Province" key="province" :width="100"  ></TableColumn></TableColumn>
                 <TableColumn title="City" key="city" :width="100"  ></TableColumn>
                 <TableColumn title="Address" key="address" :width="100"  ></TableColumn>
                 <TableColumn title="Address" key="address" :width="100"  ></TableColumn>

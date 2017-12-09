@@ -1,11 +1,11 @@
 <template>
     <table cellspacing="0" cellpadding="0" border="0" :style="styles">
         <colgroup>
-            <col v-for="(column, index) in columns" :width="setCellWidth(column, index, true)">
+            <col v-for="(column, index) in columns" v-bind:key="column.key"  :width="setCellWidth(column, index, true)">
         </colgroup>
         <thead>
-            <tr>
-                <th v-for="(column, index) in columns" :class="alignCls(column)">
+            <tr v-for="i in maxLevel"> 
+                <th v-for="(column, index) in filterColumnsByLevel(i)"  :key="column.key"  :colspan="column.colSpan" :rowspan="column.rowSpan"   :class="alignCls(column)">
                     <div :class="cellClasses(column)">
                         <template v-if="column.type === 'expand'">
                             <span v-if="!column.renderHeader">{{ column.title || '' }}</span>
@@ -30,7 +30,7 @@
                                 <div slot="content" :class="[prefixCls + '-filter-list']" v-if="column._filterMultiple">
                                     <div :class="[prefixCls + '-filter-list-item']">
                                         <checkbox-group v-model="column._filterChecked">
-                                            <checkbox v-for="item in column.filters" :key="column._columnKey" :label="item.value">{{ item.label }}</checkbox>
+                                            <checkbox v-for="item in column.filters" :key="item._columnKey" :label="item.value">{{ item.label }}</checkbox>
                                         </checkbox-group>
                                     </div>
                                     <div :class="[prefixCls + '-filter-footer']">
@@ -45,7 +45,7 @@
                                             @click="handleReset(index)">{{ t('i.table.clearFilter') }}</li>
                                         <li
                                             :class="itemClasses(column, item)"
-                                            v-for="item in column.filters"
+                                            v-for="item in column.filters" :key="item.key"
                                             @click="handleSelect(index, item.value)">{{ item.label }}</li>
                                     </ul>
                                 </div>
@@ -65,6 +65,42 @@
     import renderHeader from './header';
     import Mixin from './mixin';
     import Locale from '../../mixins/locale';
+    function getChildSize(items){
+        let i=0;
+        items.forEach(item=>{
+            if(item.children){
+                i = i+ getChildSize(item.children);
+            }
+            else{
+                i++
+            }
+
+        })
+        return i;
+         
+    }
+    function filterColumnsByLevel(columns, i, target,max){
+            columns.forEach(item => {
+                if (i==1){
+                    target.push(item)
+                    if(item.children){
+                        item.colSpan =getChildSize(item.children)
+                    }
+                    else{
+                        item.rowSpan =max-i+1
+                    }
+                }
+                else if(item.children){
+                    filterColumnsByLevel(item.children, i-1, target,max)
+                      
+                }
+
+            
+            });
+          
+
+        }
+ 
 
     export default {
         name: 'TableHead',
@@ -77,12 +113,17 @@
             objData: Object,
             data: Array,    // rebuildData
             columnsWidth: Object,
+            maxLevel:{
+                type: Number,
+                default:1
+            },
             fixed: {
                 type: [Boolean, String],
                 default: false
             }
         },
         computed: {
+         
             styles () {
                 const style = Object.assign({}, this.styleObject);
                 const width = this.$parent.bodyHeight === 0 ? parseInt(this.styleObject.width) : parseInt(this.styleObject.width) + this.$parent.scrollBarWidth;
@@ -104,6 +145,15 @@
             }
         },
         methods: {
+            filterColumnsByLevel(i){
+                let c = this.$parent.columns;
+                let cs =[];
+                filterColumnsByLevel(c,i,cs,this.maxLevel);
+                console.info('level' + i )
+                console.info(cs);
+                return cs;
+
+            },
             cellClasses (column) {
                 return [
                     `${this.prefixCls}-cell`,

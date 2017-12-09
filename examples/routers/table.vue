@@ -795,6 +795,7 @@
         <br><br><br>
         <Table width="550"  style="height:100%" border :columns="columns2" :data="data0"></Table>
         <Table width="550" style="height:100%" border :columns="columns2" :data="data1"></Table>
+        <Table width="550" style="height:100%" border :columns="columns3" :data="data1"></Table>
     </div>
 </template>
 <script>
@@ -885,6 +886,76 @@
                         title: 'Postcode',
                         key: 'zip',
                         width: 100
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        // fixed: 'right',
+                        width: 120,
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'text',
+                                        size: 'small'
+                                    }
+                                }, 'View'),
+                                h('Button', {
+                                    props: {
+                                        type: 'text',
+                                        size: 'small'
+                                    }
+                                }, 'Edit')
+                            ]);
+                        }
+                    }
+                ],
+                columns3: [
+                    {
+                        title: 'Name',
+                        key: 'name',
+                        width: 100,
+                    //    fixed: 'left'
+                    },
+                    {
+                        title:'info',
+                        width: 100,
+                        children:[
+                        {
+                            title: 'Age',
+                            key: 'age',
+                            width: 100
+                        },
+                        {
+                            title: 'Province',
+                            key: 'province',
+                            width: 100
+                        }
+                        ]
+                    },
+                    { 
+                        title:'info2',
+                        children:[
+                        {
+                            title: 'City',
+                            key: 'city',
+                            width: 100
+                        },
+                        {
+                        title:'oo',
+                        children:[
+                            {
+                            title: 'Address',
+                            key: 'address',
+                            width: 200
+                            },
+                         {
+                            title: 'Postcode',
+                            key: 'zip',
+                            width: 100
+                        }]
+                        }
+                        ]
                     },
                     {
                         title: 'Action',

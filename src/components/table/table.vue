@@ -4,6 +4,7 @@
             <div :class="[prefixCls + '-title']" v-if="showSlotHeader" ref="title"><slot name="header"></slot></div>
             <div :class="[prefixCls + '-header']" v-if="showHeader" ref="header" @mousewheel="handleMouseWheel">
                 <table-head
+                    :maxLevel="columnLevel"
                     :prefix-cls="prefixCls"
                     :styleObject="tableStyle"
                     :columns="cloneColumns"
@@ -40,6 +41,7 @@
                 <div :class="fixedHeaderClasses" v-if="showHeader">
                     <table-head
                         fixed="left"
+                          :maxLevel="columnLevel"
                         :prefix-cls="prefixCls"
                         :styleObject="fixedTableStyle"
                         :columns="leftFixedColumns"
@@ -62,6 +64,7 @@
                 <div :class="fixedHeaderClasses" v-if="showHeader">
                     <table-head
                         fixed="right"
+                          :maxLevel="columnLevel"
                         :prefix-cls="prefixCls"
                         :styleObject="fixedRightTableStyle"
                         :columns="rightFixedColumns"
@@ -95,7 +98,7 @@ import {
   oneOf,
   getStyle,
   deepCopy,
-  getScrollBarSize
+  getScrollBarSize,getMaxLevel,copyColumns,copyComponentOptions
 } from "../../utils/assist";
 import { on, off } from "../../utils/dom";
 import Csv from "../../utils/csv";
@@ -186,6 +189,7 @@ export default {
   data() {
     return {
       ready: false,
+      columnLevel:1,
       tableWidth: 0,
       columnsWidth: {},
       prefixCls: prefixCls,
@@ -813,8 +817,13 @@ export default {
       });
       return data;
     },
+
     makeColumns() {
-      let columns = deepCopy(this.columns);
+      // let columns = deepCopy(this.columns);
+      let columns =[];
+      copyColumns(this.columns,columns)
+
+ 
       let left = [];
       let right = [];
       let center = [];
@@ -890,13 +899,17 @@ export default {
   },
   mounted() {
     let columns =this.columns;
+    if ( this.$slots.default){
     this.$slots.default.forEach(item=>{
-      if(item.componentOptions){
-        let c=deepCopy(item.componentOptions.propsData);
-        c.key = item.key
+      if(item.componentOptions &&item.componentOptions.tag=='TableColumn'){
+        let c= copyComponentOptions(item);
         columns.push(c);
       }
     })
+    }
+    this.columnLevel = getMaxLevel(this.columns,0);
+
+
     this.handleResize();
     this.fixedHeader();
     this.$nextTick(() => (this.ready = true));

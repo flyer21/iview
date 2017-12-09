@@ -1,3 +1,4 @@
+
  
 <script>
 export default {
@@ -21,26 +22,8 @@ export default {
       filterRemote:Function,
       fixed:String,
       render:Function
-  },
-  data() {
-    return {};
-  },
- 
-   created() {
-       console.info("==========================")
-       this.columnConfig={};
-       console.info(this);
-   },
-   mounted(){
-       console.info('m==========')
-   },
-  methods: {
-    getColumnData() {
-        let c ={};
-        c.title = title;
-
-        return  c;
-    }
   }
+ 
+  
 };
 </script>

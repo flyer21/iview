@@ -278,3 +278,43 @@ export function removeClass(el, cls) {
         el.className = trim(curClass);
     }
 }
+
+export function getMaxLevel(columns,i){
+    i++;
+    let k =i;
+    columns.forEach(element => {
+        if (element.children){
+            i = Math.max(i,getMaxLevel (element.children,k));
+        }
+        
+    });
+    return i;
+
+}
+
+export function copyColumns(columns,target){
+    columns.forEach(item=>{
+        if (item.children){
+            copyColumns(item.children,target);
+        }
+        else{
+            target.push( deepCopy(item));
+        }
+    } );
+}
+
+export function  copyComponentOptions (item){
+    let c = deepCopy(item.componentOptions.propsData);
+    if (item.componentOptions.children){
+        c.children=[];
+        item.componentOptions.children.forEach(cc=>{
+            if (cc.componentOptions){
+                c.children.push(copyComponentOptions(cc));
+            }
+        });
+       
+    }
+
+    c.key = item.key;
+    return c;
+}
