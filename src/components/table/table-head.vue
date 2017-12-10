@@ -1,11 +1,13 @@
 <template>
-    <table cellspacing="0" cellpadding="0" border="0" :style="styles">
+    <table cellspacing="0" cellpadding="0" border="0" :style="styles" >
         <colgroup>
             <col v-for="(column, index) in columns" v-bind:key="column.key"  :width="setCellWidth(column, index, true)">
         </colgroup>
         <thead>
             <tr v-for="i in maxLevel"> 
-                <th v-for="(column, index) in filterColumnsByLevel(i)"  :key="column.key"  :colspan="column.colSpan" :rowspan="column.rowSpan"   :class="alignCls(column)">
+                <th v-for="(column, index) in filterColumnsByLevel(i)"  :key="column.key"  @mousemove.stop="$parent.handleTitleMouseMove($event,column)"
+                                        @mousedown.stop="$parent.handleTitleMouseDown($event)"
+                                        @mouseout.stop="$parent.handleTitleMouseOut()" :colspan="column.colSpan" :rowspan="column.rowSpan"   :class="alignCls(column)">
                     <div :class="cellClasses(column)">
                         <template v-if="column.type === 'expand'">
                             <span v-if="!column.renderHeader">{{ column.title || '' }}</span>

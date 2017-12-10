@@ -34,3 +34,35 @@ export const off = (function() {
         };
     }
 })();
+
+
+   // 获取当前元素的left、top偏移
+export function getViewportOffset(element) {
+
+    var doc = document.documentElement,
+        box = typeof element.getBoundingClientRect !== "undefined" ? element.getBoundingClientRect() : 0,
+        scrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0),
+        scrollTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0),
+        offsetLeft = box.left + window.pageXOffset,
+        offsetTop = box.top + window.pageYOffset;
+
+
+    var left = offsetLeft - scrollLeft,
+        top = offsetTop - scrollTop;
+
+    return {
+        left: left,
+        top: top,
+        right: window.document.documentElement.clientWidth - box.width - left,
+        bottom: window.document.documentElement.clientHeight - box.height - top
+    };
+}
+
+export function getLastChild(children){
+    if (children[children.length-1].children){
+        return getLastChild(children[children.length-1].children);
+
+    }
+    return children[children.length-1]
+    
+}

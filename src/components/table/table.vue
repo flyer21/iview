@@ -88,6 +88,8 @@
         <Spin fix size="large" v-if="loading">
             <slot name="loading"></slot>
         </Spin>
+        <!--列拖动时的线条-->
+        <div v-show="isDragging" ref="dragLine" :class="[prefixCls +'-drag-line']"></div>        
     </div>
 </template>
 <script>
@@ -105,7 +107,7 @@ import Csv from "../../utils/csv";
 import ExportCsv from "./export-csv";
 import Locale from "../../mixins/locale";
 import elementResizeDetectorMaker from "element-resize-detector";
-
+import dragWidthMixin from './header-drag-mixin.js'
 const prefixCls = "ivu-table";
 
 let rowKey = 1;
@@ -114,7 +116,7 @@ let rowHeight = 48;
 let pageSize=10
 export default {
   name: "Table",
-  mixins: [Locale],
+  mixins: [Locale,dragWidthMixin],
   components: { tableHead, tableBody, Spin },
   props: {
     data: {
@@ -181,6 +183,10 @@ export default {
     disabledHover: {
       type: Boolean
     },
+    columnWidthDrag: {
+      type: Boolean,
+      default: true
+    },    
     loading: {
       type: Boolean,
       default: false
