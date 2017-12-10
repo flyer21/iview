@@ -43,107 +43,106 @@
 </template>
 <script>
 // todo :key="row"
-import TableTr from "./table-tr.vue";
+import TableTr from './table-tr.vue';
 import CellEditor from './cell-editor.vue';
-import Cell from "./cell.vue";
-import Expand from "./expand.js";
-import Mixin from "./mixin";
+import Cell from './cell.vue';
+import Expand from './expand.js';
+import Mixin from './mixin';
 
 export default {
-  name: "TableBody",
-  mixins: [Mixin],
-  components: { Cell, Expand, TableTr,CellEditor },
-  props: {
-    prefixCls: String,
-    styleObject: Object,
-    columns: Array,
-    data: Array, // rebuildData
-    objData: Object,
-    columnsWidth: Object,
-    fixed: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
-  computed: {
-    expandRender () {
-      let render = function () {
-        return '';
-      };
-      for (let i = 0; i < this.columns.length; i++) {
-        const column = this.columns[i];
-        if (column.type && column.type === 'expand') {
-          if (column.render) render = column.render;
+    name: 'TableBody',
+    mixins: [Mixin],
+    components: { Cell, Expand, TableTr,CellEditor },
+    props: {
+        prefixCls: String,
+        styleObject: Object,
+        columns: Array,
+        data: Array, // rebuildData
+        objData: Object,
+        columnsWidth: Object,
+        fixed: {
+            type: [Boolean, String],
+            default: false
         }
-      }
-      return render;
     },
-    viewerStyle() {
-      let style = {};
-       let viewer =   this.$parent.viewer;
-      if (this.data.length>viewer.size) {
-        let  height =(this.data.length-viewer.pageSize)* viewer.rowHeight;
+    computed: {
+        expandRender () {
+            let render = function () {
+                return '';
+            };
+            for (let i = 0; i < this.columns.length; i++) {
+                const column = this.columns[i];
+                if (column.type && column.type === 'expand') {
+                    if (column.render) render = column.render;
+                }
+            }
+            return render;
+        },
+        viewerStyle() {
+            let style = {};
+            let viewer =   this.$parent.viewer;
+            if (this.data.length>viewer.size) {
+                let  height =(this.data.length-viewer.pageSize)* viewer.rowHeight;
         // let  height =(this.data.length)* viewer.rowHeight;
-        style.height = `${height}px`;
-      }
-      else{
+                style.height = `${height}px`;
+            }
+            else{
           //  let  height =(this.data.length-viewer.pageSize)* viewer.rowHeight;
-        let  height =(this.data.length)* viewer.rowHeight;
-        style.height = `${height}px`;
-      }
-      return style;
-    }
-  },
-  methods: {
-    filterData: function(numbers) {
-      return numbers.filter((currentValue, index, arr) => {
-        let viewer =   this.$parent.viewer;
-        return index >= viewer.from && index < viewer.size + viewer.from;
-      });
+                let  height =(this.data.length)* viewer.rowHeight;
+                style.height = `${height}px`;
+            }
+            return style;
+        }
     },
+    methods: {
+        filterData: function(numbers) {
+            return numbers.filter((currentValue, index) => {
+                let viewer =   this.$parent.viewer;
+                return index >= viewer.from && index < viewer.size + viewer.from;
+            });
+        },
  
   
 
-    rowChecked (_index) {
-      return this.objData[_index] && this.objData[_index]._isChecked;
-    },
-    rowDisabled(_index){
-      return this.objData[_index] && this.objData[_index]._isDisabled;
-    },
-    rowExpanded(_index){
-      return this.objData[_index] && this.objData[_index]._isExpanded;
-    },
-    handleMouseIn (_index) {
-      this.$parent.handleMouseIn(_index);
-    },
-    handleMouseOut (_index) {
-      this.$parent.handleMouseOut(_index);
-    },
-    clickCurrentRow (_index) {
-      let cell = this.getCell(event.target);
-      this.$parent.$emit('on-cell-click', _index, cell);      
-      this.$parent.clickCurrentRow(_index);
-    },
-    getCell(src) {
+        rowChecked (_index) {
+            return this.objData[_index] && this.objData[_index]._isChecked;
+        },
+        rowDisabled(_index){
+            return this.objData[_index] && this.objData[_index]._isDisabled;
+        },
+        rowExpanded(_index){
+            return this.objData[_index] && this.objData[_index]._isExpanded;
+        },
+        handleMouseIn (_index) {
+            this.$parent.handleMouseIn(_index);
+        },
+        handleMouseOut (_index) {
+            this.$parent.handleMouseOut(_index);
+        },
+        clickCurrentRow (_index) {
+            let cell = this.getCell(event.target);
+            this.$parent.$emit('on-cell-click', _index, cell);      
+            this.$parent.clickCurrentRow(_index);
+        },
+        getCell(src) {
       //cell.firstElementChild.__vue__.$options.name
-        if (src.tagName=='TD'){
-          return src.firstChild.__vue__
-        }
-        while (src) {
-            if (src.__vue__&& src.__vue__.$options.name=='TableCell'){
-              return src.__vue__;
+            if (src.tagName=='TD'){
+                return src.firstChild.__vue__;
             }
-            src = src.parentElement;
-        }
-        return src;
+            while (src) {
+                if (src.__vue__&& src.__vue__.$options.name=='TableCell'){
+                    return src.__vue__;
+                }
+                src = src.parentElement;
+            }
+            return src;
 
-    },    
-    dblclickCurrentRow (_index) {
-      const target = event.target;
-      let cell = this.getCell(event.target);
-      this.$parent.$emit('on-cell-dblclick', _index, cell);      
-      this.$parent.dblclickCurrentRow(_index);
+        },    
+        dblclickCurrentRow (_index) {
+            let cell = this.getCell(event.target);
+            this.$parent.$emit('on-cell-dblclick', _index, cell);      
+            this.$parent.dblclickCurrentRow(_index);
+        }
     }
-  }
 };
 </script>

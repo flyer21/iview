@@ -40,7 +40,7 @@ export const off = (function() {
 export function getViewportOffset(element) {
 
     var doc = document.documentElement,
-        box = typeof element.getBoundingClientRect !== "undefined" ? element.getBoundingClientRect() : 0,
+        box = typeof element.getBoundingClientRect !== 'undefined' ? element.getBoundingClientRect() : 0,
         scrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0),
         scrollTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0),
         offsetLeft = box.left + window.pageXOffset,
@@ -63,6 +63,6 @@ export function getLastChild(children){
         return getLastChild(children[children.length-1].children);
 
     }
-    return children[children.length-1]
+    return children[children.length-1];
     
 }

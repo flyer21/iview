@@ -46,7 +46,7 @@
                 this.value = v;
                 if (typeof this.editor == 'object' && this.$refs.editor) {
 
-                    this.$set(this.$refs.editor, 'currentValue', v)
+                    this.$set(this.$refs.editor, 'currentValue', v);
                 }
                 this.show = true;
 
@@ -54,7 +54,7 @@
             },
             stopEditor() {
                 this.show = false;
-                let rowData = this.$parent.$parent.data[this.index]
+                let rowData = this.$parent.$parent.data[this.index];
                 if (rowData) {
                     if (typeof this.editor == 'object') {
                         this.$set(rowData, this.key, this.$refs.editor.currentValue);
@@ -63,7 +63,7 @@
                     }
 
                 }
-                this.index = -1
+                this.index = -1;
 
 
             },

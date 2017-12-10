@@ -1,6 +1,6 @@
 // 列宽度拖动
 // import utils from '../../src/utils/utils.js'
-import {hasClass, addClass, removeClass,on,off,getViewportOffset,getLastChild} from '../../utils/dom.js';
+import {on,off,getViewportOffset,getLastChild} from '../../utils/dom.js';
 export default {
 
     data(){
@@ -91,7 +91,7 @@ export default {
             }
         },
 
-        handleTitleMouseDown(event, column){
+        handleTitleMouseDown(event){
 
             if (!this.draggingColumn) {
                 return false;
@@ -212,4 +212,4 @@ export default {
 
     }
 
-}
+};

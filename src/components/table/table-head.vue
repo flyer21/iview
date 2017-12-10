@@ -74,34 +74,34 @@
                 i = i+ getChildSize(item.children);
             }
             else{
-                i++
+                i++;
             }
 
-        })
+        });
         return i;
          
     }
     function filterColumnsByLevel(columns, i, target,max){
-            columns.forEach(item => {
-                if (i==1){
-                    target.push(item)
-                    if(item.children){
-                        item.colSpan =getChildSize(item.children)
-                    }
-                    else{
-                        item.rowSpan =max-i+1
-                    }
+        columns.forEach(item => {
+            if (i==1){
+                target.push(item);
+                if(item.children){
+                    item.colSpan =getChildSize(item.children);
                 }
-                else if(item.children){
-                    filterColumnsByLevel(item.children, i-1, target,max)
+                else{
+                    item.rowSpan =max-i+1;
+                }
+            }
+            else if(item.children){
+                filterColumnsByLevel(item.children, i-1, target,max);
                       
-                }
+            }
 
             
-            });
+        });
           
 
-        }
+    }
  
 
     export default {
@@ -151,8 +151,6 @@
                 let c = this.$parent.columns;
                 let cs =[];
                 filterColumnsByLevel(c,i,cs,this.maxLevel);
-                console.info('level' + i )
-                console.info(cs);
                 return cs;
 
             },
