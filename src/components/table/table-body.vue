@@ -36,6 +36,7 @@
                     </td>
                 </tr>
             </template>
+            <CellEditor ref="cellEditor"   ></CellEditor>            
         </tbody>
     </table>
     </div>
@@ -43,6 +44,7 @@
 <script>
 // todo :key="row"
 import TableTr from "./table-tr.vue";
+import CellEditor from './cell-editor.vue';
 import Cell from "./cell.vue";
 import Expand from "./expand.js";
 import Mixin from "./mixin";
@@ -50,7 +52,7 @@ import Mixin from "./mixin";
 export default {
   name: "TableBody",
   mixins: [Mixin],
-  components: { Cell, Expand, TableTr },
+  components: { Cell, Expand, TableTr,CellEditor },
   props: {
     prefixCls: String,
     styleObject: Object,
@@ -118,9 +120,28 @@ export default {
       this.$parent.handleMouseOut(_index);
     },
     clickCurrentRow (_index) {
+      let cell = this.getCell(event.target);
+      this.$parent.$emit('on-cell-click', _index, cell);      
       this.$parent.clickCurrentRow(_index);
     },
+    getCell(src) {
+      //cell.firstElementChild.__vue__.$options.name
+        if (src.tagName=='TD'){
+          return src.firstChild.__vue__
+        }
+        while (src) {
+            if (src.__vue__&& src.__vue__.$options.name=='TableCell'){
+              return src.__vue__;
+            }
+            src = src.parentElement;
+        }
+        return src;
+
+    },    
     dblclickCurrentRow (_index) {
+      const target = event.target;
+      let cell = this.getCell(event.target);
+      this.$parent.$emit('on-cell-dblclick', _index, cell);      
       this.$parent.dblclickCurrentRow(_index);
     }
   }

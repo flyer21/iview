@@ -170,6 +170,10 @@ const router = new VueRouter({
             component: require('./routers/table-column.vue')
         },
         {
+            path: '/tableeditor',
+            component: require('./routers/table-editor.vue')
+        },
+        {
             path: '/loading-bar',
             component: require('./routers/loading-bar.vue')
         },

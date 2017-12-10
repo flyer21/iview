@@ -394,6 +394,37 @@ export default {
     }
   },
   methods: {
+    handleCellEditor(i,cell) {
+        // let key = cell.getAttribute('data-column');
+       
+        let val = this.data[i][ cell.column.key];
+        let ed = this.getCellEditor(i,cell);
+        if (ed){
+            // ed.rowData = this.data[i];
+                    //   let val = this.data[i][key];
+            ed.startEditor(val);
+        }
+
+    },
+    // getColumn(key){
+    //     let r = null;
+    //     this.columns.forEach(col =>{
+    //         if (col.key == key){
+    //             r = col;
+    //         }
+    //     })
+    //     return r;
+
+    // },
+    getCellEditor(i,cell){
+        // let key = cell.getAttribute('data-column');
+        let col = cell.column;
+        let editor = this.$refs.tbody.$refs.cellEditor;
+
+        return editor.getCellEditor(i,col,cell);
+      
+
+    },
     rowClsName(index) {
       return this.rowClassName(this.data[index], index);
     },
@@ -924,7 +955,9 @@ export default {
         this.fixedHeader();
       }
     });
-    console.info("body height:"+ this.$refs.body.clientHeight)
+    // console.info("body height:"+ this.$refs.body.clientHeight)
+    this.$on('on-cell-click', this.handleCellEditor);
+    this.$on('on-cell-dblclick', this.handleCellEditor);    
   },
   beforeDestroy() {
     off(window, "resize", this.handleResize);
