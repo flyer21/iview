@@ -776,6 +776,16 @@ export default {
             this.cloneColumns[index]._filterChecked = [value];
             this.handleFilter(index);
         },
+
+        handleSelectColumn(event,c){
+            if (this.selectColumn){
+              this.selectColumn.selected= false;
+            }
+            c.selected=true;
+            this.selectColumn = c;
+       
+        
+        },
         handleFilterReset(index) {
             this.cloneColumns[index]._isFiltered = false;
             this.cloneColumns[index]._filterVisible = false;

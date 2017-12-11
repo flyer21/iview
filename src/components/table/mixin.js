@@ -7,6 +7,7 @@ export default {
             }
             return [
                 {
+                    [`${this.prefixCls}-column-selected`]: column.selected,                    
                     [`${cellClassName}`]: cellClassName,    // cell className
                     [`${column.className}`]: column.className,    // column className
                     [`${this.prefixCls}-column-${column.align}`]: column.align,

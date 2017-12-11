@@ -5,7 +5,9 @@
         </colgroup>
         <thead>
             <tr v-for="i in maxLevel"> 
-                <th v-for="(column, index) in filterColumnsByLevel(i)"  :key="column.key"  @mousemove.stop="$parent.handleTitleMouseMove($event,column)"
+                <th v-for="(column, index) in filterColumnsByLevel(i)"  :key="column.key"
+                                        @click="handleSelectColumn($event,column)"
+                                        @mousemove.stop="$parent.handleTitleMouseMove($event,column)"
                                         @mousedown.stop="$parent.handleTitleMouseDown($event)"
                                         @mouseout.stop="$parent.handleTitleMouseOut()" :colspan="column.colSpan" :rowspan="column.rowSpan"   :class="alignCls(column)">
                     <div :class="cellClasses(column)">
@@ -203,6 +205,9 @@
             },
             handleFilter (index) {
                 this.$parent.handleFilter(index);
+            },
+            handleSelectColumn(e,c){
+                this.$parent.handleSelectColumn(e, c);
             },
             handleSelect (index, value) {
                 this.$parent.handleFilterSelect(index, value);
