@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div>
         <div style="width: 550px;">
             <Table height="200" border :columns="columns2" :data="bigData"></Table>
@@ -10,6 +11,9 @@
             <Table border :columns="columns6" :data="data5"></Table>
     </div>
 
+=======
+    <Table border :columns="columns6" :data="data5"></Table>
+>>>>>>> 6b2cd6742a490d4a7159d887f56a93faf801e637
 </template>
 <script>
     export default {
@@ -83,6 +87,15 @@
                         title: 'Name',
                         key: 'name'
                     },
+                 
+                    {
+                        title: 'Date',
+                        key: 'date'
+                    },
+                    {
+                        title: 'Name',
+                        key: 'name'
+                    },
                     {
                         title: 'Age',
                         key: 'age',
@@ -108,6 +121,7 @@
                     {
                         title: 'Address',
                         key: 'address',
+<<<<<<< HEAD
                         width: 200
                     },
                     {
@@ -244,6 +258,47 @@
                         date: '2016-10-02'
                     },
                     {
+=======
+                        filters: [
+                            {
+                                label: 'New York',
+                                value: 'New York'
+                            },
+                            {
+                                label: 'London',
+                                value: 'London'
+                            },
+                            {
+                                label: 'Sydney',
+                                value: 'Sydney'
+                            }
+                        ],
+                        filterMethod (value, row) {
+                            return row.address.indexOf(value) > -1;
+                        }
+                    }
+                ],
+                data5: [
+                    {
+                        name: 'John Brown',
+                        age: 18,
+                        address: 'New York No. 1 Lake Park',
+                        date: '2016-10-03'
+                    },
+                    {
+                        name: 'Jim Green',
+                        age: 24,
+                        address: 'London No. 1 Lake Park',
+                        date: '2016-10-01'
+                    },
+                    {
+                        name: 'Joe Black',
+                        age: 30,
+                        address: 'Sydney No. 1 Lake Park',
+                        date: '2016-10-02'
+                    },
+                    {
+>>>>>>> 6b2cd6742a490d4a7159d887f56a93faf801e637
                         name: 'Jon Snow',
                         age: 26,
                         address: 'Ottawa No. 2 Lake Park',
